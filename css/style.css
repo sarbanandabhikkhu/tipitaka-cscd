@@ -1,0 +1,377 @@
+@font-face {
+  font-family: "Roman-Regular";
+  src: url("fonts/Verajja-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Roman-Bold";
+  src: url("fonts/Verajja-Bold.ttf") format("truetype");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+*::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+*::-webkit-scrollbar-thumb {
+  background: transparent; /* Optional: show position indicator in transparent */
+}
+
+/* Using them with fallback values 
+  <meta name="viewport" content="viewport-fit=cover" />
+  safe-area-inset-top, safe-area-inset-right, safe-area-inset-bottom, safe-area-inset-left
+  titlebar-area-x, titlebar-area-y, titlebar-area-width, titlebar-area-height
+  keyboard-inset-top, keyboard-inset-right, keyboard-inset-bottom, keyboard-inset-left, keyboard-inset-width, keyboard-inset-height
+
+  body {
+    padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px)
+      env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);
+  }
+  header {
+    position: fixed;
+    left: env(titlebar-area-x);
+    top: env(titlebar-area-y);
+    width: env(titlebar-area-width);
+    height: env(titlebar-area-height);
+  }
+  main {
+    margin-top: env(titlebar-area-height);
+  }
+*/
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  font-family: "Roman-Regular";
+  font-size: 14px;
+  background-color: #c9a40150;
+}
+aside {
+}
+
+.container__tree {
+  width: 100%;
+  height: calc(100vh - 30px);
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.container__tree button {
+  width: 100%;
+  height: 18px;
+  border: none;
+  text-align: left;
+  line-height: 18px;
+  background-color: transparent;
+  font-family: "Roman-Regular";
+}
+
+.container__tree button svg {
+  max-width: 14px;
+  height: 14px;
+  margin: 0 3px -3px 0;
+  pointer-events: none;
+  fill: orange;
+}
+.container__tree button svg:nth-child(1) {
+  margin-bottom: -1px;
+  height: 10px;
+  fill: black;
+}
+
+.container__tree div {
+  display: none;
+  margin-left: 1px;
+  padding-left: 15px;
+  /*border-left: dotted orange 1.4px;*/
+}
+
+.container__tree div a {
+  width: 100%;
+  height: 18px;
+  font-size: 14px;
+  line-height: 16px;
+  text-decoration: none;
+}
+
+.container__tree div a svg {
+  width: 13px;
+  height: 13px;
+  margin: 0 3px -2.5px -1px;
+  pointer-events: none;
+  fill: #0174fd;
+}
+
+.container__tree button,
+.container__tree div a {
+  word-break: break-all;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+/*.container__tree > div button::before,*/
+/*.container__tree > div a::before {*/
+/*  content: "";*/
+/*  z-index: -1;*/
+/*  width: 8px;*/
+/*  height: 16px;*/
+/*  position: absolute;*/
+/*  margin-top: -7px;*/
+/*  margin-left: -10px;*/
+/*  border-left: dotted #b3bbc5 1.4px;*/
+/*  border-bottom: dotted #b3bbc5 1.4px;*/
+/*}*/
+
+/* breadcrumbs start */
+
+.container__breadcrumbs {
+  width: 300px;
+  height: auto;
+}
+.container__breadcrumbs .breadcrumbs {
+  width: 100%;
+  padding: 0px 10px;
+  overflow-x: scroll;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: #efefef;
+}
+.container__breadcrumbs .breadcrumbs svg {
+  fill: orange;
+  height: 14px;
+  margin-bottom: -2px;
+}
+.container__breadcrumbs .breadcrumbs button {
+  height: 20px;
+  padding: 0 2px;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+  font-family: "Roman-Regular";
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.container__breadcrumbs .breadcrumbs button:nth-child(odd) {
+  cursor: none;
+  color: orange;
+  font-weight: bold;
+  font-family: "Roman-Bold";
+}
+.container__breadcrumbs .breadcrumbs button:last-child {
+  color: #0174fd;
+  font-size: 13.5px;
+  font-family: "Roman-Bold";
+}
+.container__breadcrumbs .breads__content {
+  display: block;
+  padding: 5px 10px;
+}
+.container__breadcrumbs .folder {
+  width: 100%;
+  height: 16px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  line-height: 16px;
+  background-color: transparent;
+  font-family: "Roman-Regular";
+}
+.container__breadcrumbs a,
+.container__breadcrumbs .file {
+  display: block;
+  width: 100%;
+  height: 16px;
+  font-size: 14px;
+  line-height: 14px;
+  text-decoration: none;
+}
+.container__breadcrumbs > button,
+.container__breadcrumbs .folder,
+.container__breadcrumbs .file {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.container__breadcrumbs > button svg,
+.container__breadcrumbs .folder svg {
+  width: 14px;
+  height: 14px;
+  margin: 0 3px -2px 0;
+  pointer-events: none;
+  fill: orange;
+}
+.container__breadcrumbs a svg,
+.container__breadcrumbs .file svg {
+  width: 13px;
+  height: 13px;
+  margin: 0 3px -2px -1px;
+  pointer-events: none;
+  fill: currentColor;
+}
+
+/* breadcrumbs end */
+
+/* tab start */
+
+.tab__buttons {
+  width: calc(100vw - 70px);
+  height: 30px;
+  text-align: left;
+  overflow-x: scroll;
+  white-space: nowrap;
+  background-color: rgba(225, 225, 225, 0.9);
+  backdrop-filter: blur(25px) saturate(2.5);
+}
+.tab__buttons button {
+  max-width: 200px;
+  min-width: 100px;
+  height: 30px;
+  padding: 0 7px;
+  text-align: left;
+  font-size: 14px;
+  line-height: 20px;
+  color: black;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: transparent;
+  border-right: 1px solid rgba(255, 255, 255, 0.9);
+}
+.tab__buttons button:last-child {
+  border: none;
+}
+.tab__buttons button.active {
+  color: #0174fd;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.tab__windows div {
+  display: none;
+  padding: 10px;
+  min-height: 100vh;
+}
+.tab__windows div.active {
+  display: block;
+  background-color: transparent;
+}
+
+/* tab end */
+
+/* content start */
+
+p {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.note {
+  color: #0174fd;
+}
+
+.bld,
+.paranum {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.indent {
+  font-size: 14px;
+  text-indent: 25px;
+  margin-left: 25px;
+  font-style: italic;
+}
+
+.bodytext {
+  font-size: 14px;
+  text-indent: 25px;
+  word-break: break-word;
+}
+
+.hangnum {
+  width: 45px;
+  margin-top: 1px;
+  font-size: 13px;
+  text-indent: 0;
+  text-align: right;
+  position: absolute;
+}
+
+/* Namo tassa, and nitthita -- no unique structural distinction */
+.centered {
+  font-size: 14px;
+  text-align: center;
+}
+
+.unindented {
+  font-size: 14px;
+}
+
+.book {
+  font-size: 21px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.chapter {
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.nikaya {
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.subhead {
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.subsubhead {
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.gatha1 {
+  font-size: 14px;
+  margin-left: 50px;
+  margin-bottom: 0;
+}
+.gatha2 {
+  font-size: 14px;
+  margin-left: 50px;
+  margin-bottom: 0;
+}
+.gatha3 {
+  font-size: 14px;
+  margin-left: 50px;
+  margin-bottom: 0;
+}
+.gathalast {
+  font-size: 14px;
+  margin-left: 50px;
+  margin-bottom: 10px;
+}
+
+/* content end */
