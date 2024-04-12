@@ -1,3 +1,3 @@
-# Tipiṭaka (CSCD)
+# tipitaka-cscd
 
-Chattha Sangayana CD Tipiṭaka Web Application
+Chattha Sangayana CD Tipitaka Web Application
