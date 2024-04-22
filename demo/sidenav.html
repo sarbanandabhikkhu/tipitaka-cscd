@@ -1,113 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <style>
-      .sidenav-overlay {
-        display: none;
+      #drawer-container {
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        display: block;
+        position: fixed;
+        overflow-y: scroll;
+        top: 0;
+        left: -300px;
+        z-index: 9999;
+        transition: left 0.25s;
+        background: white;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+
+        ul {
+          list-style-type: none;
+          padding: 0;
+
+          li a {
+            line-height: 45px;
+            text-decoration: none;
+            color: #6e6e6e;
+            padding: 0 10px;
+            display: block;
+            margin: 5px;
+            font-family: Roboto, sans-serif;
+            border-radius: 5px;
+
+            &.active {
+              background: rgba(10, 113, 209, 0.1);
+              color: #0a71d1 !important;
+              pointer-events: none;
+            }
+
+            i {
+              font-size: 24px;
+              position: relative;
+              bottom: -7px;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+
+      #drawer-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        z-index: 99;
-        background: #212121;
-        transition: all 0.2s;
-        background: rgba(0, 0, 0, 0.3);
-      }
-      .sidenav ul {
-        list-style-type: none;
-        padding: 0;
-      }
-      .sidenav ul li a {
-        line-height: 45px;
-        text-decoration: none;
-        color: #6e6e6e;
-        padding: 0 10px;
-        display: block;
-        margin: 5px;
-        font-family: Roboto, sans-serif;
-        border-radius: 5px;
-      }
-      .active_link {
-        background: rgba(10, 113, 209, 0.1);
-        color: #0a71d1 !important;
-        pointer-events: none;
-      }
-      .sidenav {
-        overflow-y: scroll;
-        width: 300px;
         height: 100vh;
+        z-index: 9998;
+        transition: right 1s;
+        background: rgba(0, 0, 0, 0.25);
         display: block;
-        position: fixed;
-        top: 0;
-        left: -300px;
-        z-index: 9999999999999999;
-        transition: left 0.2s;
-        z-index: 999;
-        background: white;
-      }
-      .sidenav ul li a i {
-        font-size: 24px;
-        position: relative;
-        bottom: -7px;
-        margin-right: 10px;
       }
     </style>
   </head>
   <body>
-    <a href="#" onclick="sidenav.open('demo_sidenav')">Open Sidenav</a>
-    <div id="demo_sidenav" class="sidenav">
-      <ul>
-        <li>
-          <a href="#" class="active_link"
-            ><i class="material-icons">home</i> Home</a
-          >
-        </li>
-        <li>
-          <a href="#"><i class="material-icons">book</i> News</a>
-        </li>
-        <li>
-          <a href="#"><i class="material-icons">forum</i> Forum</a>
-        </li>
-        <li>
-          <a href="#"><i class="material-icons">help</i> Help</a>
-        </li>
-        <li>
-          <a href="#"><i class="material-icons">settings</i> Settings</a>
-        </li>
-      </ul>
+    <div onclick="drawer.open('drawer-container')">
+      <i class="material-icons">menu</i>
     </div>
+
+    <div id="app">
+      <div id="drawer-container">
+        <ul>
+          <li>
+            <a href="#" class="active"><i class="material-icons">home</i> Home</a>
+          </li>
+          <li>
+            <a href="#"><i class="material-icons">feed</i> News</a>
+          </li>
+          <li>
+            <a href="#"><i class="material-icons">forum</i> Forum</a>
+          </li>
+          <li>
+            <a href="#"><i class="material-icons">help</i> Help</a>
+          </li>
+          <li>
+            <a href="#"><i class="material-icons">settings</i> Settings</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <script>
-      const sidenav = {
-        open: function (selector) {
-          document.getElementById(selector).style.left = "0";
-          var x = document.getElementById("sidenav-overlay");
-          x.style.display = "block";
-          x.style.opacity = 0;
-          setTimeout(function () {
-            x.style.opacity = 1;
-          }, 10);
-          x.onclick = function () {
-            sidenav.close(selector);
-          };
+      const drawer = {
+        overlay: null,
+        open: container => {
+          const parent = document.getElementById(container).parentNode;
+          document.getElementById(container).style.left = "0";
+          overlay = document.createElement("div");
+          overlay.id = "drawer-overlay";
+          overlay.onclick = () => drawer.close(container);
+          setTimeout(() => parent.appendChild(overlay), 250);
         },
-        close: function (selector) {
-          document.getElementById(selector).style.left = "-300px";
-          var x = document.getElementById("sidenav-overlay");
-          x.style.opacity = 0;
-          setTimeout(function () {
-            x.style.display = "none";
-          }, 200);
-        },
+        close: container => {
+          document.getElementById(container).style.left = "-300px";
+          overlay.style.opacity = 0;
+          overlay.remove();
+        }
       };
-      var sidenav_overlay = document.createElement("div");
-      sidenav_overlay.className = "sidenav-overlay";
-      sidenav_overlay.id = "sidenav-overlay";
-      document.body.appendChild(sidenav_overlay);
     </script>
   </body>
 </html>

@@ -22,7 +22,7 @@ const firebaseConfig = {
   projectId: "user-collection-95378",
   storageBucket: "user-collection-95378.appspot.com",
   messagingSenderId: "524608473235",
-  appId: "1:524608473235:web:f542d96c7f5820abce2566",
+  appId: "1:524608473235:web:f542d96c7f5820abce2566"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -34,7 +34,7 @@ import {
   set,
   child,
   update,
-  remove,
+  remove
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 
 const db = getDatabase();
@@ -52,11 +52,11 @@ function createUser(user) {
 function getAllUsers() {
   allUsers.innerHTML = `Loading...`;
   get(child(ref(db), "users"))
-    .then((snapshot) => {
+    .then(snapshot => {
       if (snapshot.exists()) {
         allUsers.innerHTML = snapshot
           .val()
-          .map((user) => createUser(user))
+          .map(user => createUser(user))
           .join("");
 
         (enterID.value = ""), (enterName.value = ""), (enterAge.value = "");
@@ -64,7 +64,7 @@ function getAllUsers() {
         alert("No User found");
       }
     })
-    .catch((error) => {
+    .catch(error => {
       alert(error);
     });
 }
@@ -73,13 +73,13 @@ function InsertUser() {
   set(ref(db, "users/" + enterID.value), {
     _id: enterID.value,
     name: enterName.value,
-    age: enterAge.value,
+    age: enterAge.value
   })
     .then(() => {
       alert("User added successfully");
       getAllUsers();
     })
-    .catch((error) => {
+    .catch(error => {
       alert(error);
     });
 }
@@ -88,7 +88,7 @@ function FindUser() {
   const dbref = ref(db);
 
   get(child(dbref, "users/" + findID.value))
-    .then((snapshot) => {
+    .then(snapshot => {
       if (snapshot.exists()) {
         allUsers.innerHTML = `
           <tr>
@@ -101,7 +101,7 @@ function FindUser() {
         alert("No User found");
       }
     })
-    .catch((error) => {
+    .catch(error => {
       alert(error);
     });
 }
@@ -109,13 +109,13 @@ function FindUser() {
 function UpdateUser() {
   update(ref(db, "users/" + enterID.value), {
     name: enterName.value,
-    age: enterAge.value,
+    age: enterAge.value
   })
     .then(() => {
       alert("User updated successfully");
       getAllUsers();
     })
-    .catch((error) => {
+    .catch(error => {
       alert(error);
     });
 }
@@ -126,7 +126,7 @@ function RemoveUser() {
       alert("User deleted successfully");
       getAllUsers();
     })
-    .catch((error) => {
+    .catch(error => {
       alert(error);
     });
 }
@@ -135,30 +135,3 @@ insertBtn.addEventListener("click", InsertUser);
 updateBtn.addEventListener("click", UpdateUser);
 removeBtn.addEventListener("click", RemoveUser);
 findBtn.addEventListener("click", FindUser);
-
-const sidenav = {
-  open: function (selector) {
-    document.getElementById(selector).style.left = "0";
-    var x = document.getElementById("sidenav-overlay");
-    x.style.display = "block";
-    x.style.opacity = 0;
-    setTimeout(function () {
-      x.style.opacity = 1;
-    }, 10);
-    x.onclick = function () {
-      sidenav.close(selector);
-    };
-  },
-  close: function (selector) {
-    document.getElementById(selector).style.left = "-300px";
-    var x = document.getElementById("sidenav-overlay");
-    x.style.opacity = 0;
-    setTimeout(function () {
-      x.style.display = "none";
-    }, 200);
-  },
-};
-var sidenav_overlay = document.createElement("div");
-sidenav_overlay.className = "sidenav-overlay";
-sidenav_overlay.id = "sidenav-overlay";
-document.body.appendChild(sidenav_overlay);
